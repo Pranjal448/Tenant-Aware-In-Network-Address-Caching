@@ -56,39 +56,55 @@ SwitchV2P Improved addresses these challenges by:
 
 ### Prerequisites
 
-- NS-3 simulator (version 3.30+)
+- NS-3 simulator checkout with the CMake-based `ns3` wrapper
 - GCC/Clang C++ compiler
 - CMake build system
 
 ### Building
 
 ```bash
-# Build the simulator
-./waf configure
-./waf build
+# From the ns-3 root directory
+./ns3 configure --enable-examples
+./ns3 build scratch/switchv2p_improved/sim
 ```
 
 ### Running Simulations
 
 ```bash
-# Run with built-in scenarios
-cd results
-python3 run.py
+# Run a single simulation with explicit inputs
+./ns3 run --no-build "scratch/switchv2p_improved/sim \
+  --placement=scratch/switchv2p/datasets/placement_n128_v80.json \
+  --trace=scratch/switchv2p/datasets/websearch.csv \
+  --output=scratch/switchv2p_improved/results/example.json \
+  --simMode=SwitchV2P --topology=Fattree --ports=8 --core=16 --podWidth=4 \
+  --gwLeaves=0,10,20,31 --tenantPolicy=DynamicWeightedEviction \
+  --tenantCount=2 --premiumTenantId=0 --tenantKeyModulo=2 \
+  --premiumProtectProbability=0.8"
 
-# Or run individual simulations with specific parameters
-./waf --run "scratch/switchv2p_improved/sim --param1=value1 --param2=value2"
+# Run the tenant-aware evaluation batch
+export NS3_HOME=/home/pranjal/Downloads/SwitchV2P-main/ns3
+python3 scratch/switchv2p_improved/results/run.py -w websearch --tenantEval --maxProc 3
 ```
+
+The `--tenantEval` flag runs the three tenant policies in this order for each memory budget:
+`Baseline`, `StaticPartitioning`, and `DynamicWeightedEviction`.
+
+For a quick sanity check, wrap the command in `timeout 30s` to confirm the batch starts, then run it normally for the full evaluation.
 
 ### Datasets
 
-Evaluation includes traces from multiple sources:
-- `datasets/`
-  - `websearch.csv`: Web search traffic patterns
-  - `hadoop.csv`: Hadoop job traffic
-  - `incast.csv`: Incast communication patterns
-  - `microburst.csv`: Microburst traffic
-  - `alibaba.csv`: Alibaba cluster traces
-  - `placement_*.json`: VM placement configurations
+Evaluation uses two kinds of inputs:
+
+- Placement JSON files live in `switchv2p_improved/datasets/`
+  - `placement_alibaba.json`
+  - `placement_n128_v80.json`
+- Traffic traces are read from the original `switchv2p/datasets/` directory
+  - `websearch.csv`
+  - `hadoop.csv`
+  - `incast.csv`
+  - `microburst.csv`
+  - `alibaba.csv`
+  - `video.csv`
 
 ## Results and Evaluation
 
@@ -97,6 +113,8 @@ Simulation results and analysis are available in the `results/` directory:
 - `tenant-evaluation.md`: Detailed evaluation report
 - `results/*.json`: Raw simulation outputs
 - `plots/`: Visualization of performance metrics
+
+The batch runner in `results/run.py` expects `NS3_HOME` to point at the ns-3 root and may launch many long-running processes.
 
 Key metrics evaluated:
 - **Tenant Hit Rate**: Cache hit rate per tenant
