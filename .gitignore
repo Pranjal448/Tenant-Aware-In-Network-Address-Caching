@@ -1,0 +1,99 @@
+# Build artifacts
+build/
+*.o
+*.so
+*.a
+*.dylib
+*.dll
+*.exe
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+
+# Simulation outputs
+*.pcap
+*.log
+*.dat
+results/*.json
+*.json.bak
+*.xml
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv_ppt/
+.venv
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.sublime-project
+.sublime-workspace
+*.bak
+
+# LaTeX/Documentation
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.pdf
+*.out
+*.toc
+
+# NS-3 specific
+ns3
+waf
+waf.bat
+.waf-*/
+.lock-waf*
+
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+.~*
+
+# Temporary files
+*temp*
+*tmp*
+.temp/
+
+# Large data files (optional - uncomment if needed)
+# datasets/*.csv
+# datasets/*.tar.gz
+
+# Derivative results plots (keep source data)
+plots/*.png
+plots/*.pdf
+# But keep plots that are part of the main repo documentation
+# !plots/README.md
