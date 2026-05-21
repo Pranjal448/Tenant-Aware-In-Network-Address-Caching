@@ -1,6 +1,6 @@
 # Tenant-aware additions over switchv2p
 
-This directory contains only the changes introduced in the improved version of SwitchV2P. The original switchv2p codebase already provides the base simulator, switch, gateway, client, and trace handling. This README documents what was added or changed here.
+This project is an extension to paper "In-Network Address Caching for Virtual Networks" published in ACM SIGCOMM 2024. The original switchv2p codebase already provides the base simulator, switch, gateway, client, and trace handling. This README documents what was added or changed here.
 
 ## What changed
 
@@ -50,8 +50,6 @@ This launches the three improved policies in order for each budget:
 2. `StaticPartitioning`
 3. `DynamicWeightedEviction`
 
-For a quick launch check, `timeout 30s` is safe to confirm the batch starts.
-
 ## Direct simulation example
 
 If you want to run one policy directly, use the improved CLI options exposed by `sim.cc`:
@@ -70,4 +68,4 @@ If you want to run one policy directly, use the improved CLI options exposed by 
 ## Notes
 
 - The base SwitchV2P build and layout remain the same as the original project.
-- If you need the full original background, use the `switchv2p` folder and its documentation.
+- If you need the full original background, check out original repo https://github.com/acsl-technion/SwitchV2P
