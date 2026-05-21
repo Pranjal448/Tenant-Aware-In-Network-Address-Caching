@@ -52,7 +52,7 @@ This launches the three improved policies in order for each budget:
 
 ## Direct simulation example
 
-If you want to run one policy directly, use the improved CLI options exposed by `sim.cc`:
+If you want to run one policy directly:
 
 ```bash
 ./ns3 run --no-build "scratch/switchv2p_improved/sim \
